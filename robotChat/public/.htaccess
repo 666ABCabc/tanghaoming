@@ -1,0 +1,15 @@
+Options -MultiViews
+RewriteEngine On
+
+# /api/chat → /api/chat.php
+RewriteRule ^api/chat$ api/chat.php [L]
+
+# 如果请求的不是真实存在的文件或目录
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# /api/ 开头的请求 → 不重写，交给 PHP 处理
+RewriteRule ^api/ - [L]
+
+# 其他所有请求 → 转发到 index.html（Vue Router 接管）
+RewriteRule ^ index.html [L]
